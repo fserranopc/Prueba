@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="product_single_min" inherit_id="website_sale.product">
+        <xpath expr="//form" position="before">
+            <span t-if="len(product.product_variant_ids) &lt;= 1 and not website.is_brittania">
+                <input type="hidden" name="stock_type" t-att-value="product.detailed_type"/>
+                <input type="hidden" name="stock_flag" value="0"/>
+                <p t-esc="product._get_min_qty(product.id)" id="min_qty" style="display: none;"/>
+                <span t-esc="product._get_available_stock(int(product.id))" id="apply_min" style="display: none;"/>
+            </span>
+        </xpath>
+        <xpath expr="//div[@id='product_attributes_simple']" position="before">
+            <div style="padding-top: 5px; font-size: 11px; font-weight: bold; display: none;" class="moq">
+                    <p>CANTIDAD MINIMA: <span t-esc="product._get_min_qty(product.id)"/></p>
+            </div>
+        </xpath>
+    </template>
+</odoo>

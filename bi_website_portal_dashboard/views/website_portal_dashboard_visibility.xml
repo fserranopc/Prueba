@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="page_user_visibility_dashboard" model="ir.ui.view">
+        <field name="name">wesbite.portal.dashboard.website.product.rights.inherit</field>
+        <field name="model">website.product.rights</field>
+        <field name="inherit_id" ref="website_product_visibility.access_rights_website_product_visibility_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[last()]" position="after">
+                <page string="Página de usuario">
+                    <group>
+                        <group>
+                            <field name="dashboard_all"/>
+                            <field name="dashboard_account"/>
+                            <field name="dashboard_quote"/>
+                            <field name="dashboard_order"/>
+                            <field name="dashboard_rfq"/>
+                            <field name="dashboard_purchase"/>
+                        </group>
+                        <group>
+                            <field name="dashboard_invoice"/>
+                            <field name="dashboard_project"/>
+                            <field name="dashboard_tasks"/>
+                            <field name="dashboard_timesheet"/>
+                            <field name="dashboard_ticket"/>
+                            <field name="dashboard_subscription"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

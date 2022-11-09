@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <!-- Show Description Field in product.product-->
+        <record id="product_product_variant_description_form_view" model="ir.ui.view">
+            <field name="name">product.product.variant.description</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='inventory']" position="after">
+                    <page string="Descripción sitio web" name="variant_description">
+                        <group string=" " name="variant_description">
+                            <group attrs="{'invisible': [('sale_ok','=',False)]}" style="width: 100%; margin-left:2rem">
+                                <field name="variant_description" nolabel="1" placeholder="This description will show up on every variant of the product."/>
+                            </group>
+                        </group>
+                     </page>
+                </xpath>
+            </field>
+        </record>
+</odoo>

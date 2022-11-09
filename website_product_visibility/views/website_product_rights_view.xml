@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Hide Add To Cart Button and quantity selector if not website_show_price -->
+    <template id="product" inherit_id="website_sale.product">
+        <!-- Lllamamos método para identificar si se puede comprar o no -->
+        <xpath expr="//t[@t-set='product_variant']" position="before">
+            <t t-set="allow_to_sell" t-value="product._get_right_to_sell()"/>
+            <t t-set="allow_price" t-value="product._get_right_to_price()"/>
+        </xpath>
+
+        <xpath expr="//a[@id='add_to_cart']" position="attributes">
+            <attribute name="t-if">
+                allow_to_sell
+            </attribute>
+        </xpath>
+    </template>
+
+    <!-- quantity in variants -->
+    <template id="variant_qty" inherit_id="website_variant_cart.inherit_website_variant_template">
+        <xpath expr="//table[@id='p_variants']/thead[1]/tr[1]/th[7]" position="attributes">
+            <attribute name="t-if">
+                allow_to_sell
+            </attribute>
+        </xpath>
+        <xpath expr="//td[@id='var-qty']" position="attributes">
+            <attribute name="t-if">
+                allow_to_sell
+            </attribute>
+        </xpath>
+    </template>
+
+     <!-- quantity in shop -->
+    <template id="product_quantity_hide" inherit_id="website_sale.product_quantity">
+        <xpath expr="//div[hasclass('align-middle')]" position="attributes">
+            <attribute name="t-if">
+                len(product.product_variant_ids) &lt;= 1 and allow_to_sell
+            </attribute>
+        </xpath>
+    </template>
+    <!-- quantity in shop -->
+
+
+    <!-- Vamos a comenzar con los precios ^^ -->
+
+    <!-- Precio principal de la tabla de variantes -->
+    <template id="var_total_price" inherit_id="website_variant_cart.inherit_website_variant_template">
+        <xpath expr="//div[@id='var-total-price']" position="attributes">
+            <attribute name="t-if">
+                allow_price
+            </attribute>
+        </xpath>
+    </template>
+    <!-- Precio principal de la tabla de variantes -->
+
+    <!-- Precio y columas para los precios de variantes -->
+    <template id="product_price_table_variant" inherit_id="website_variant_cart.inherit_website_variant_template">
+        <!-- Precio -->
+        <xpath expr="//table[@id='p_variants']/thead[1]/tr[1]/th[6]" position="attributes">
+            <attribute name="t-if">
+                allow_price
+            </attribute>
+        </xpath>
+        <xpath expr="//td[@id='var-price']" position="attributes">
+            <attribute name="t-if">
+                allow_price
+            </attribute>
+        </xpath>
+        <!-- Subtotal -->
+        <xpath expr="//table[@id='p_variants']/thead[1]/tr[1]/th[8]" position="attributes">
+            <attribute name="t-if">
+                allow_price
+            </attribute>
+        </xpath>
+        <xpath expr="//td[@id='var-subtotal']" position="attributes">
+            <attribute name="t-if">
+                allow_price
+            </attribute>
+        </xpath>
+    </template>
+    <!-- Precio y columas para los precios de variantes (incluye subtotal) -->
+
+    <!-- Precio pricipal de los productos sin la tabla de variantes -->
+    <template id="product_price" inherit_id="website_sale.product_price">
+        <xpath expr="//span[hasclass('oe_price')]" position="attributes">
+            <attribute name="t-if">
+                allow_price
+            </attribute>
+        </xpath>
+    </template>
+    <!-- Precio pricipal de los productos sin la tabla de variantes -->
+    
+    <!-- Precio principal de las tarjetas del producto -->
+    <template id="product_price_hide_card" inherit_id="website_sale.products_item">
+        <xpath expr="//div" position="before">
+            <t t-set="allow_price" t-value="product._get_right_to_price()"/>
+        </xpath>
+        <xpath expr="//div[hasclass('product_price')]" position="attributes">
+            <attribute name="t-if">
+                allow_price
+            </attribute>
+        </xpath>
+    </template>
+     <!-- Precio principal de las tarjetas del producto -->
+    
+</odoo>

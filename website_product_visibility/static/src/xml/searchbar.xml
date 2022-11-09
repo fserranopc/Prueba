@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-extend="website_sale.productsSearchBar.autocomplete">
+        <t t-jquery='.dropdown-menu .dropdown-item' t-operation='replace'>
+            <a t-foreach="products" t-as="product"
+                t-att-href="product['website_url']" class="dropdown-item p-2 text-wrap">
+                <div class="media align-items-center o_search_product_item">
+                    <t t-if="widget.displayImage">
+                        <img t-attf-src="/web/image/product.template/#{product['id']}/image_128"
+                            class="flex-shrink-0 o_image_64_contain"/>
+                    </t>
+                    <div class="media-body px-3">
+                        <t t-set="description" t-value="widget.displayDescription and product['description_sale']"/>
+                        <h6 t-attf-class="font-weight-bold #{description ? '' : 'mb-0'}" t-esc="product['name']"/>
+                        <p t-if="description" class="mb-0" t-esc="description"/>
+                    </div>
+                    <div t-if="widget.displayPrice" class="flex-shrink-0">
+                        <t t-if="product['has_discounted_price']">
+                            <t t-if="!product['product_attr_hidden_price']">
+                                <span class="text-danger text-nowrap" style="text-decoration: line-through;">
+                                    <t t-raw="product['list_price']"/>
+                                </span>
+                                <br/>
+                            </t>
+                        </t>
+                        <t t-if="!product['product_attr_hidden_price']">
+                            <b class="text-nowrap">
+                                <t t-raw="product['price']"/>
+                            </b>
+                        </t>
+                    </div>
+                </div>
+            </a>
+        </t>
+    </t>
+</templates>

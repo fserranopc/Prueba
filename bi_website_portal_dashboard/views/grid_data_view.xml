@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<odoo>
+<data>
+<!--Vista de arbol-->
+    <record id="grid_data_tree_view" model="ir.ui.view">
+        <field name="name">grid.data.tree.view</field>
+        <field name="model">grid.data</field>
+        <field name="arch" type="xml">
+            <tree string="Mi cuenta">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <!--Vista de formulario-->
+    <record id="grid_data_form_view" model="ir.ui.view">
+        <field name="name">grid.data.form.view</field>
+        <field name="model">grid.data</field>
+        <field name="arch" type="xml">
+            <form string="Mi cuenta">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="check" widget="boolean_toggle"/>
+                            <field name="url"/>
+                        </group>
+                        <group>
+                            <field name="color" widget="color"/>
+                            <field name="icon"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+   <!--Accion-->
+    <record id="action_data_grid_edit" model="ir.actions.act_window">
+        <field name="name">Mi cuenta dashboard</field>
+        <field name="res_model">grid.data</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <!--Menu-->
+    
+    <menuitem action="action_data_grid_edit" name="Mi cuenta dashboard"
+        id="dashboard_grid_data" parent="website.menu_website_global_configuration"
+        sequence="1"/>
+        
+</data>
+</odoo>
+
+

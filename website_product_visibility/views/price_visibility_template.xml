@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Vista Formulario -->
+    <record id="access_rights_website_product_visibility_form" model="ir.ui.view">
+        <field name="name">Formulario de Permisos de acceso en el website</field>
+        <field name="model">website.product.rights</field>
+        <field name="arch" type="xml">
+
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Ej. Distribuidores"/>
+                        </h1>
+                    </div>
+                    <group name="main_access_rights">
+                        <group>
+                            <field name="type"/>
+                            <field name="website_id"/>
+                        </group>
+                        <group>
+                            <field name="date" invisible="1"/>
+                            <field name="rights" widget="radio"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Usuarios" name="users">
+                            <field name="user_ids">
+                                <tree editable="bottom">
+                                    <field name="name" readonly="1"/>
+                                    <field name="login" readonly="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Plantilla de productos" attrs="{'invisible' : [('type','!=','template')]}">
+                            <field name="product_tmpl_ids" domain="[('is_published','=',True)]">
+                                <tree editable="bottom">
+                                    <field name="display_name" readonly="1"/>
+                                    <field name="is_published" readonly="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Variante de productos" attrs="{'invisible' : [('type','!=','product')]}">
+                            <field name="product_ids" domain="[('is_published','=',True)]">
+                                <tree>
+                                    <field name="display_name" readonly="1"/>
+                                    <field name="is_published" readonly="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Categoria" attrs="{'invisible' : [('type','!=','category')]}">
+                            <field name="categ_ids" domain="[('website_id','=',website_id)]">
+                                <tree editable="bottom">
+                                    <field name="display_name" readonly="1"/>
+                                    <field name="website_id" readonly="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+
+        </field>
+    </record>
+
+    <!-- Vista de arbol -->
+    <record id="access_rights_website_product_visibility_tree" model="ir.ui.view">
+        <field name="name">Lista de permisos de acceso en el website</field>
+        <field name="model">website.product.rights</field>
+        <field name="arch" type="xml">
+
+            <tree>
+                <field name="name"/>
+                <field name="type"/>
+                <field name="rights"/>
+            </tree>
+
+        </field>
+    </record>
+
+    <!-- acción de la vista -->
+    <record id="action_website_access_rights" model="ir.actions.act_window">
+        <field name="name">Permisos de visualización en website</field>
+        <field name="res_model">website.product.rights</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crear una nueva regla de visualización
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu -->
+    <menuitem id="menu_website_access_rights" 
+        name='Permisos de visualización'
+        action="action_website_access_rights"
+        parent="website.menu_website_website_settings"
+        sequence="11"/>
+
+</odoo>
