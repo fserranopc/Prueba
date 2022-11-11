@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="product_internal_stock" inherit_id="website_sale.product" name="product Reference">
+        <xpath expr="//form" position="before">
+            <span t-if="len(product.product_variant_ids) &lt;= 1 and not website.is_brittania">
+                <p><b>Stock disponible:</b> <span t-esc="product._get_available_stock(product.id)"/></p>
+            </span>
+        </xpath>
+    </template>
+</odoo>
