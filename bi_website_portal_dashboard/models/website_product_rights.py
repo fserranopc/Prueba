@@ -18,6 +18,7 @@ class WebsiteProductRights(models.Model):
     dashboard_ticket = fields.Boolean(string='Tickets')
     dashboard_rfq = fields.Boolean(string='Solicitudes de cotización')
     dashboard_subscription = fields.Boolean(string='Suscripciones')
+    dashboard_repair = fields.Boolean(string="Reparaciones")
 
     # select/deselect all
     @api.onchange('dashboard_all')

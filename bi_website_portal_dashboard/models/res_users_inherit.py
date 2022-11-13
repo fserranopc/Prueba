@@ -70,7 +70,7 @@ class ResUsersInherit(models.Model):
 			'quotes':[],'orders':[],'invoices':[],
 			'timesheets':[],'projects':[],'tasks':[],
 			'purchase':[],'account':[],'tickets':[],
-			'rfq':[],'subscription':[], 'opportunities':[]
+			'rfq':[],'subscription':[], 'opportunities':[], 'repair_order': []
 		}
 		for r in rights:
 			# validate users
@@ -102,6 +102,8 @@ class ResUsersInherit(models.Model):
 							apply[url].append(r.dashboard_rfq)
 						if url == 'subscription':
 							apply[url].append(r.dashboard_subscription)
+						if url == 'repair_order':
+							apply[url].append(r.dashboard_repair)
 		# find in the dict the position of url, and get the values
 		if True in apply[url]:
 			return True

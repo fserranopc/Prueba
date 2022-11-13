@@ -23,6 +23,7 @@
                             <field name="dashboard_timesheet"/>
                             <field name="dashboard_ticket"/>
                             <field name="dashboard_subscription"/>
+                            <field name="dashboard_repair" />
                         </group>
                     </group>
                 </page>
